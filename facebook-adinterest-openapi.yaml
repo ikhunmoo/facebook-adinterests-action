@@ -14,7 +14,7 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: FBAccessToken
+      bearerFormat: EAADQ4EkidGQBPeOeJG5BpGzR6LRUZBD1TjxwmEWxwMinIho00aMhYnfHznZC3DqIfnLxMiNDeZBxLjgVDFLZCNpAv9WgwghBDe2nTz7NmFHYvP8v67cR8xdVebFqKgMZA6iQjrHMBl7yGKm7uSfgoz5joZBiRbMwz06UMtrO5s6AmnMadXBy9dBjMHBgjgZBJo5aVFohkBacNZCG8ZBbminAIbK3MeBZCwVDN4SYhBIHQC80SPRjRyeFBG4x11B9a4qtW2WvXQaZCYYnLRAHVREoAYQa2c5ZAqOVZBwZDZD
 
 security:
   - bearerAuth: []
