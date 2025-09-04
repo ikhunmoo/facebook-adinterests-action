@@ -11,7 +11,7 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://YOUR_DOMAIN/path/facebook-adinterest-openapi.yaml"
+    "url": "https://github.com/ikhunmoo/facebook-adinterests-action/blob/main/facebook-adinterests.json"
   },
   "capabilities": {
     "response_applications": []
