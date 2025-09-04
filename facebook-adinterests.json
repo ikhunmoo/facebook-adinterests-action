@@ -1,0 +1,19 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Facebook Ad Interests",
+  "name_for_model": "facebook_ad_interests",
+  "description_for_human": "ค้นหาและดึง Facebook Ad Interests แล้วสรุปเป็นตาราง",
+  "description_for_model": "Call the Facebook Graph API `search` endpoint with type=adinterest to fetch interests. Always return a cleaned table with key fields. Handle pagination using the `after` cursor until ~500 rows or API limits.",
+  "auth": {
+    "type": "custom",
+    "authorization_type": "bearer",
+    "instructions": "Paste a long-lived Facebook Graph API access token (Marketing API). It will be sent as an Authorization: Bearer <token> header."
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://YOUR_DOMAIN/path/facebook-adinterest-openapi.yaml"
+  },
+  "capabilities": {
+    "response_applications": []
+  }
+}

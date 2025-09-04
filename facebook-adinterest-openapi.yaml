@@ -1,0 +1,122 @@
+openapi: 3.0.3
+info:
+  title: Facebook Graph API - Ad Interest Search
+  version: 1.0.0
+  description: >
+    ใช้ดึงข้อมูล Ad Interests จาก Facebook Graph API ผ่าน endpoint `/search?type=adinterest`.
+    สามารถค้นหาด้วย keyword, จำกัดจำนวนผลลัพธ์ (limit), ตั้งค่า locale และทำ pagination ผ่าน cursor (`after`).
+
+servers:
+  - url: https://graph.facebook.com/v21.0
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: FBAccessToken
+
+security:
+  - bearerAuth: []
+
+paths:
+  /search:
+    get:
+      operationId: searchAdInterests
+      summary: Search Facebook Ad Interests
+      description: |
+        ใช้ค้นหา Ad Interests จาก Graph API.
+        ต้องใส่พารามิเตอร์ `type=adinterest` และ keyword `[keyword]`.
+        รองรับการแบ่งหน้า (pagination) ผ่านพารามิเตอร์ `after`.
+
+      parameters:
+        - in: query
+          name: type
+          required: true
+          schema:
+            type: string
+            enum: [adinterest]
+          example: adinterest
+
+        - in: query
+          name: q
+          required: true
+          schema:
+            type: string
+          example: "[food]"
+          description: Search term (ใส่ใน [] ตาม format ของ Graph API)
+
+        - in: query
+          name: limit
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 10000
+            default: 1000
+          description: จำนวนผลลัพธ์สูงสุดต่อการเรียก (สูงสุด 10000)
+
+        - in: query
+          name: locale
+          required: false
+          schema:
+            type: string
+            default: en_US
+          description: Locale ของผลลัพธ์ (เช่น en_US หรือ th_TH)
+
+        - in: query
+          name: after
+          required: false
+          schema:
+            type: string
+          description: Cursor สำหรับ pagination (ใช้จาก response ก่อนหน้า)
+
+      responses:
+        "200":
+          description: รายการ Ad Interests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "6003139266461"
+                        name:
+                          type: string
+                          example: "Food"
+                        audience_size:
+                          type: integer
+                          example: 1200000000
+                        path:
+                          type: array
+                          items:
+                            type: string
+                          example: ["Interests", "Food and drink", "Food"]
+                        topic:
+                          type: string
+                          example: "Food"
+                        description:
+                          type: string
+                          example: "People interested in all things food"
+                  paging:
+                    type: object
+                    properties:
+                      cursors:
+                        type: object
+                        properties:
+                          before: { type: string }
+                          after: { type: string }
+                      next:
+                        type: string
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized (Invalid token)
+        "429":
+          description: Rate limited
